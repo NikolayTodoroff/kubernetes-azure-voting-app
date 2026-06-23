@@ -11,6 +11,12 @@ resource "azurerm_kubernetes_cluster" "aks" {
     vm_size             = var.system_node_vm_size
     vnet_subnet_id      = var.vnet_subnet_id
     only_critical_addons_enabled = true
+
+  upgrade_settings {
+      max_surge                     = "10%"
+      drain_timeout_in_minutes      = 0
+      node_soak_duration_in_minutes = 0
+    }  
   }
 
   identity {
