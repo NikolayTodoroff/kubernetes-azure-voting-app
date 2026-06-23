@@ -31,3 +31,19 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   tags = var.tags
 }
+
+resource "azurerm_kubernetes_cluster_node_pool" "user" {
+  name                  = "user"
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
+  vm_size               = var.user_node_vm_size
+  node_count            = var.user_node_count
+  vnet_subnet_id        = var.vnet_subnet_id
+  mode                  = "User"
+
+  node_labels = {
+    "nodepool-type" = "user"
+    "app"           = "voting"
+  }
+
+  tags = var.tags
+}

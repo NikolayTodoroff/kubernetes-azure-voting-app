@@ -46,6 +46,18 @@ variable "admin_group_object_ids" {
   type        = list(string)
 }
 
+variable "user_node_count" {
+  description = "Number of nodes in the user node pool"
+  type        = number
+  default     = 1
+}
+
+variable "user_node_vm_size" {
+  description = "VM size for user node pool nodes"
+  type        = string
+  default     = "Standard_D2s_v3"
+}
+
 variable "tags" {
   description = "Common tags applied to all resources"
   type        = map(string)
