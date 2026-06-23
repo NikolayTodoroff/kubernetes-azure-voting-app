@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: voting
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      nodeSelector:
+        nodepool-type: user
+      containers:
+        - name: frontend
+          image: acraksvoterdev.azurecr.io/azure-vote-front:1.0
+
+          ports:
+            - containerPort: 80
+          env:
+            - name: REDIS
+              value: "redis"
+            - name: REDIS_PWD
+              value: ""
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
