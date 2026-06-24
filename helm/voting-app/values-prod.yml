@@ -1,0 +1,12 @@
+frontend:
+  image:
+    repository: acraksvoterdev.azurecr.io/azure-vote-front
+    tag: "1.0"
+  replicaCount: 2
+
+hpa:
+  minReplicas: 2
+  maxReplicas: 6
+
+rbac:
+  adminGroupObjectId: "6bafad54-4b72-4bdf-a0f0-ef624315c576"
