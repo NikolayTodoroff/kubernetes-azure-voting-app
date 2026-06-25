@@ -30,8 +30,12 @@ variables:
     - group: aksvoter-dev-vars
   - ${{ if eq(parameters.environment, 'prod') }}:
     - group: aksvoter-prod-vars
-  - name: acrName
-    value: 'acraksvoterdev'
+  - ${{ if eq(parameters.environment, 'dev') }}:
+    - name: acrName
+      value: 'acraksvoterdev'
+  - ${{ if eq(parameters.environment, 'prod') }}:
+    - name: acrName
+      value: 'acraksvoterprod'
   - name: imageRepository
     value: 'azure-vote-front'
   - name: imageTag
@@ -253,7 +257,9 @@ stages:
                       helm upgrade --install $(helmReleaseName) $(helmChartPath) \
                         --values $(helmChartPath)/values.yml \
                         --values $(helmChartPath)/values-${{ parameters.environment }}.yml \
+                        --set frontend.image.repository=$(acrName).azurecr.io/azure-vote-front \
                         --set frontend.image.tag=$(imageTag) \
                         --namespace voting \
                         --create-namespace \
-                        --wait
+                        --wait \
+                        --timeout 10m
