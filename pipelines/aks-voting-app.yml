@@ -108,6 +108,10 @@ stages:
               workingDirectory: $(workingDirectory)
 
           - bash: |
+              curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+            displayName: 'Install TFLint'
+
+          - bash: |
               tflint --init --config=../.tflint.hcl
               tflint --config=../.tflint.hcl
             displayName: 'TFLint'
