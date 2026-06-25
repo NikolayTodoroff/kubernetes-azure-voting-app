@@ -251,8 +251,8 @@ stages:
                     scriptLocation: 'inlineScript'
                     inlineScript: |
                       helm upgrade --install $(helmReleaseName) $(helmChartPath) \
-                        --values $(helmChartPath)/values.yaml \
-                        --values $(helmChartPath)/values-${{ parameters.environment }}.yaml \
+                        --values $(helmChartPath)/values.yml \
+                        --values $(helmChartPath)/values-${{ parameters.environment }}.yml \
                         --set frontend.image.tag=$(imageTag) \
                         --namespace voting \
                         --create-namespace \
