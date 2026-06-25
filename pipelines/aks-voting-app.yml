@@ -69,7 +69,7 @@ stages:
           - task: AzureCLI@2
             displayName: 'Build and Push to ACR'
             inputs:
-              azureSubscription: 'service-connection'
+              azureSubscription: 'service_connection'
               scriptType: 'bash'
               scriptLocation: 'inlineScript'
               inlineScript: |
@@ -95,7 +95,7 @@ stages:
             inputs:
               command: 'init'
               workingDirectory: $(workingDirectory)
-              backendServiceArm: 'service-connection'
+              backendServiceArm: 'service_connection'
               backendAzureRmResourceGroupName: $(backendResourceGroup)
               backendAzureRmStorageAccountName: $(backendStorageAccount)
               backendAzureRmContainerName: $(backendContainer)
@@ -131,7 +131,7 @@ stages:
             inputs:
               command: 'init'
               workingDirectory: $(workingDirectory)
-              backendServiceArm: 'service-connection'
+              backendServiceArm: 'service_connection'
               backendAzureRmResourceGroupName: $(backendResourceGroup)
               backendAzureRmStorageAccountName: $(backendStorageAccount)
               backendAzureRmContainerName: $(backendContainer)
@@ -142,7 +142,7 @@ stages:
             inputs:
               command: 'plan'
               workingDirectory: $(workingDirectory)
-              environmentServiceNameAzureRM: 'service-connection'
+              environmentServiceNameAzureRM: 'service_connection'
               commandOptions: '-out=$(Pipeline.Workspace)/tfplan -var-file="$(tfVarsFile)"'
             env:
               TF_VAR_pipeline_sp_object_id: $(pipelineSpObjectId)
@@ -181,7 +181,7 @@ stages:
                   inputs:
                     command: 'init'
                     workingDirectory: $(workingDirectory)
-                    backendServiceArm: 'service-connection'
+                    backendServiceArm: 'service_connection'
                     backendAzureRmResourceGroupName: $(backendResourceGroup)
                     backendAzureRmStorageAccountName: $(backendStorageAccount)
                     backendAzureRmContainerName: $(backendContainer)
@@ -198,7 +198,7 @@ stages:
                   inputs:
                     command: 'apply'
                     workingDirectory: $(workingDirectory)
-                    environmentServiceNameAzureRM: 'service-connection'
+                    environmentServiceNameAzureRM: 'service_connection'
                     commandOptions: '$(Pipeline.Workspace)/tfplan/tfplan'
 
   - stage: DeployApp
@@ -220,7 +220,7 @@ stages:
                 - task: AzureCLI@2
                   displayName: 'Get AKS Credentials'
                   inputs:
-                    azureSubscription: 'service-connection'
+                    azureSubscription: 'service_connection'
                     scriptType: 'bash'
                     scriptLocation: 'inlineScript'
                     inlineScript: |
@@ -232,7 +232,7 @@ stages:
                 - task: AzureCLI@2
                   displayName: 'Helm Deploy'
                   inputs:
-                    azureSubscription: 'service-connection'
+                    azureSubscription: 'service_connection'
                     scriptType: 'bash'
                     scriptLocation: 'inlineScript'
                     inlineScript: |
