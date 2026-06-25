@@ -222,6 +222,15 @@ stages:
                 - checkout: self
 
                 - task: AzureCLI@2
+                  displayName: 'Install kubectl and kubelogin'
+                  inputs:
+                    azureSubscription: 'service_connection'
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      az aks install-cli
+
+                - task: AzureCLI@2
                   displayName: 'Get AKS Credentials'
                   inputs:
                     azureSubscription: 'service_connection'
@@ -232,6 +241,7 @@ stages:
                         --resource-group $(aksResourceGroup) \
                         --name $(aksClusterName) \
                         --overwrite-existing
+                      kubelogin convert-kubeconfig -l azurecli  
 
                 - task: AzureCLI@2
                   displayName: 'Helm Deploy'
