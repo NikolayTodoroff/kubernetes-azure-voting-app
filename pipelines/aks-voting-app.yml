@@ -142,7 +142,7 @@ stages:
             inputs:
               command: 'plan'
               workingDirectory: $(workingDirectory)
-              environmentServiceNameAzureRM: 'azure-service-connection'
+              environmentServiceNameAzureRM: 'service-connection'
               commandOptions: '-out=$(Pipeline.Workspace)/tfplan -var-file="$(tfVarsFile)"'
             env:
               TF_VAR_pipeline_sp_object_id: $(pipelineSpObjectId)
@@ -181,7 +181,7 @@ stages:
                   inputs:
                     command: 'init'
                     workingDirectory: $(workingDirectory)
-                    backendServiceArm: 'azure-service-connection'
+                    backendServiceArm: 'service-connection'
                     backendAzureRmResourceGroupName: $(backendResourceGroup)
                     backendAzureRmStorageAccountName: $(backendStorageAccount)
                     backendAzureRmContainerName: $(backendContainer)
