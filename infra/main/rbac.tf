@@ -15,3 +15,9 @@ resource "azurerm_role_assignment" "aks_pipeline_admin" {
   role_definition_name = "Azure Kubernetes Service Cluster Admin Role"
   principal_id         = var.pipeline_sp_object_id
 }
+
+resource "azurerm_role_assignment" "aks_pipeline_rbac_admin" {
+  scope                = module.aks.cluster_id
+  role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
+  principal_id         = var.pipeline_sp_object_id
+}
